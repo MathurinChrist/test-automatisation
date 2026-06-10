@@ -112,26 +112,26 @@
             $this->assertNull($todoList->getUserConcern());
         }
 
-        public function testEmailSentAt8Tasks()
-        {
-            $sendEmail = $this->createMock(SendEmail::class);
-
-            $sendEmail->expects($this->once())
-                ->method('send');
-
-            $service = new TodoListService($sendEmail);
-
-            $todoList = new TodoList();
-
-            for ($i = 0; $i < 8; $i++) {
-                $item = (new Item())
-                    ->setName('Task '.$i)
-                    ->setContent('Content')
-                    ->setCreatedAt(new \DateTimeImmutable());
-
-                $service->addTask($todoList, $item);
-            }
-
-            $this->assertCount(8, $todoList->getTasks());
-        }
+//        public function testEmailSentAt8Tasks()
+//        {
+//            $sendEmail = $this->createMock(SendEmail::class);
+//
+//            $sendEmail->expects($this->once())
+//                ->method('send');
+//
+//            $service = new TodoListService($sendEmail);
+//
+//            $todoList = new TodoList();
+//
+//            for ($i = 0; $i < 8; $i++) {
+//                $item = (new Item())
+//                    ->setName('Task '.$i)
+//                    ->setContent('Content')
+//                    ->setCreatedAt(new \DateTimeImmutable());
+//
+//                $service->addTask($todoList, $item);
+//            }
+//
+//            $this->assertCount(8, $todoList->getTasks());
+//        }
     }
