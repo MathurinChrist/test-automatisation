@@ -8,6 +8,7 @@
         public function testGetItems(): void
         {
             $client = static::createClient();
+            
 
             $client->request('GET', '/items/');
 
