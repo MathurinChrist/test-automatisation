@@ -1,43 +1,24 @@
 name: Symfony
 
 on:
-push:
-branches:
-- main
-pull_request:
-branches:
-- main
-
-permissions:
-contents: read
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-symfony-tests:
-runs-on: ubuntu-latest
+  tests:
+    runs-on: ubuntu-latest
 
-```
-steps:
-  - name: Checkout repository
-    uses: actions/checkout@v5
+    steps:
+      - uses: actions/checkout@v5
 
-  - name: Setup PHP
-    uses: shivammathur/setup-php@v2
-    with:
-      php-version: '8.2'
-      extensions: mbstring, xml, ctype, iconv, intl
-      coverage: none
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
 
-  - name: Cache Composer dependencies
-    uses: actions/cache@v4
-    with:
-      path: vendor
-      key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-      restore-keys: |
-        ${{ runner.os }}-composer-
+      - run: composer install --no-interaction --prefer-dist
 
-  - name: Install dependencies
-    run: composer install --no-interaction --prefer-dist --optimize-autoloader
-
-  - name: Run tests
-    run: make test
-```
+      - run: make test
